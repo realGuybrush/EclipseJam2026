@@ -30,8 +30,8 @@ public class PlayerController : MonoBehaviour
         move?.Enable();
         attack?.Enable();
         action?.Enable();
-        move.performed += HandleMove;
-        move.canceled += HandleMove;
+        //move.performed += HandleMove;
+        //move.canceled += HandleMove;
         attack.started += HandleAttack;
         action.started += HandleActStart;
         action.canceled += HandleActEnd;
@@ -45,9 +45,10 @@ public class PlayerController : MonoBehaviour
             if(decompileTimer <= 0)
                 screwdriver.SetActive(false);
         }
+        HandleMove();
     }
 
-    private void HandleMove(InputAction.CallbackContext callbackContext)
+    private void HandleMove()//(InputAction.CallbackContext callbackContext)
     {
         if (decompileTimer > 0 || hammer.activeSelf) return;
         Move(move.ReadValue<Vector2>());
