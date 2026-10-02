@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: e5f1c1c086c11874291356764aaf1002
+guid: a505efda1524e07469dd877232edfa77
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 3536530938591342608
-    second: PlayerPlaceholder_0
+      213: -4736205325310922717
+    second: shop_table_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -49,7 +49,7 @@ TextureImporter:
   spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
-  alignment: 7
+  alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
@@ -73,7 +73,7 @@ TextureImporter:
   - serializedVersion: 4
     buildTarget: DefaultTexturePlatform
     maxTextureSize: 2048
-    resizeAlgorithm: 1
+    resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 0
     compressionQuality: 50
@@ -126,13 +126,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: PlayerPlaceholder_0
+      name: shop_table_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 100
-        height: 100
+        width: 277
+        height: 611
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -141,8 +141,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 0107aebb628441130800000000000000
-      internalID: 3536530938591342608
+      spriteID: 3207781a95e954eb0800000000000000
+      internalID: -4736205325310922717
       vertices: []
       indices: 
       edges: []
@@ -161,7 +161,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      PlayerPlaceholder_0: 3536530938591342608
+      shop_table_0: -4736205325310922717
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

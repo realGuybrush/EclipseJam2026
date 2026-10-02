@@ -1,4 +1,3 @@
-using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -6,7 +5,11 @@ public class PlayerController : MonoBehaviour
 {
     [SerializeField]
     private PlayerInput playerInput;
+
     private InputAction move, attack, action;
+
+    [SerializeField]
+    private Animator animator;
 
     [SerializeField]
     private Rigidbody2D rigidBody;
@@ -14,10 +17,13 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private float speed, decompileTime;
 
-    private float decompileTimer;
+    private float decompileTimer, cashOnHand;
 
     [SerializeField]
-    private GameObject hammer, screwdriver;
+    private Hammer hammer;
+
+    [SerializeField]
+    private GameObject screwdriver;
 
     [SerializeField]
     private Transform barLoc;
@@ -30,8 +36,6 @@ public class PlayerController : MonoBehaviour
         move?.Enable();
         attack?.Enable();
         action?.Enable();
-        //move.performed += HandleMove;
-        //move.canceled += HandleMove;
         attack.started += HandleAttack;
         action.started += HandleActStart;
         action.canceled += HandleActEnd;
@@ -42,16 +46,18 @@ public class PlayerController : MonoBehaviour
         if (decompileTimer > 0)
         {
             decompileTimer -= Time.deltaTime;
-            if(decompileTimer <= 0)
+            if (decompileTimer <= 0)
                 screwdriver.SetActive(false);
         }
         HandleMove();
     }
 
-    private void HandleMove()//(InputAction.CallbackContext callbackContext)
+    private void HandleMove() //(InputAction.CallbackContext callbackContext)
     {
-        if (decompileTimer > 0 || hammer.activeSelf) return;
-        Move(move.ReadValue<Vector2>());
+        if (decompileTimer > 0 || hammer.gameObject.activeSelf)
+            Move(Vector2.zero);
+        else
+            Move(move.ReadValue<Vector2>());
     }
 
     private void Move(Vector2 dir)
@@ -67,22 +73,14 @@ public class PlayerController : MonoBehaviour
     {
         if (dir.x > 0 && transform.eulerAngles.y > 0)
             transform.eulerAngles = Vector3.zero;
-        else
-        if (dir.x < 0 && transform.eulerAngles.y == 0)
+        else if (dir.x < 0 && transform.eulerAngles.y == 0)
             transform.eulerAngles = new Vector3(0, 180f, 0);
     }
 
     private void HandleAttack(InputAction.CallbackContext callbackContext)
     {
         Move(Vector2.zero);
-        StartCoroutine("AttackTimer");
-    }
-
-    private IEnumerator AttackTimer()
-    {
-        hammer.SetActive(true);
-        yield return new WaitForSeconds(1f);
-        hammer.SetActive(false);
+        animator.SetTrigger("Attack");
     }
 
     private void HandleActStart(InputAction.CallbackContext callbackContext)
@@ -108,6 +106,11 @@ public class PlayerController : MonoBehaviour
             decompileTimer = 0;
             //animator.SetBool("Decompiling", false);
         }
+    }
+
+    public void GetMoney(float profit)
+    {
+        cashOnHand += profit;
     }
 
     private void OnDestroy()

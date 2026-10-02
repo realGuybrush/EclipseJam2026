@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: e5f1c1c086c11874291356764aaf1002
+guid: 899793fbe927b4640bf6238d40fafa07
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 3536530938591342608
-    second: PlayerPlaceholder_0
+      213: -8491496591619165178
+    second: washing_machine_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -49,9 +49,9 @@ TextureImporter:
   spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
-  alignment: 7
-  spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  alignment: 9
+  spritePivot: {x: 0.5, y: 0.2}
+  spritePixelsToUnits: 150
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -73,7 +73,7 @@ TextureImporter:
   - serializedVersion: 4
     buildTarget: DefaultTexturePlatform
     maxTextureSize: 2048
-    resizeAlgorithm: 1
+    resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 0
     compressionQuality: 50
@@ -126,13 +126,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: PlayerPlaceholder_0
+      name: washing_machine_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 100
-        height: 100
+        width: 224
+        height: 309
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -141,8 +141,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 0107aebb628441130800000000000000
-      internalID: 3536530938591342608
+      spriteID: 604791df6d4282a80800000000000000
+      internalID: -8491496591619165178
       vertices: []
       indices: 
       edges: []
@@ -161,7 +161,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      PlayerPlaceholder_0: 3536530938591342608
+      washing_machine_0: -8491496591619165178
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
