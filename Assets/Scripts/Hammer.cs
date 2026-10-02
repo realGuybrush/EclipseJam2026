@@ -33,6 +33,6 @@ public class Hammer : MonoBehaviour
     }
 
     public float Damage { get => defaultDamage;
-        set => defaultDamage = value;
+        set => damage = defaultDamage = value;
     }
 }

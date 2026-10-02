@@ -8,9 +8,6 @@ public class Health : MonoBehaviour
 
     [SerializeField]
     private float health;
-
-    [SerializeField]
-    private bool destroyOnDeath;
     
     public event Action OnDead = delegate { };
 
@@ -21,10 +18,7 @@ public class Health : MonoBehaviour
         if(health <= 0)
         {
             OnDead?.Invoke();
-            if(destroyOnDeath)
-                Destroy(gameObject);
-            else
-                animator.SetBool("Dead", true);
+            animator.SetBool("Dead", true);
         }
     }
 }

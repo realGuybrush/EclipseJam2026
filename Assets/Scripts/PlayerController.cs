@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -15,18 +17,21 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D rigidBody;
 
     [SerializeField]
-    private float speed, decompileTime;
+    private float speed;
 
-    private float decompileTimer, cashOnHand;
+    private float cashOnHand;
 
     [SerializeField]
     private Hammer hammer;
 
     [SerializeField]
-    private GameObject screwdriver;
+    private Screwdriver screwdriver;
 
     [SerializeField]
     private Transform barLoc;
+
+    private List<Device> devices = new List<Device>();
+    private List<BaseShop> shops = new List<BaseShop>();
 
     private void Awake()
     {
@@ -39,22 +44,17 @@ public class PlayerController : MonoBehaviour
         attack.started += HandleAttack;
         action.started += HandleActStart;
         action.canceled += HandleActEnd;
+        screwdriver.OnFinish += Decompile;
     }
 
     void Update()
     {
-        if (decompileTimer > 0)
-        {
-            decompileTimer -= Time.deltaTime;
-            if (decompileTimer <= 0)
-                screwdriver.SetActive(false);
-        }
         HandleMove();
     }
 
-    private void HandleMove() //(InputAction.CallbackContext callbackContext)
+    private void HandleMove()
     {
-        if (decompileTimer > 0 || hammer.gameObject.activeSelf)
+        if (screwdriver.Working || hammer.gameObject.activeSelf)
             Move(Vector2.zero);
         else
             Move(move.ReadValue<Vector2>());
@@ -63,10 +63,8 @@ public class PlayerController : MonoBehaviour
     private void Move(Vector2 dir)
     {
         rigidBody.linearVelocity = dir * speed;
-        TryFlip(move.ReadValue<Vector2>());
-        //animator.SetBool("Decompiling", false);
-        //animator.SetBool("Walk", rigidBody.linearVelocity.magnitude > 0f);
-        //armsAnimator.SetBool("Walk", rigidBody.linearVelocity.magnitude > 0f);
+        TryFlip(dir);
+        animator.SetBool("Walk", rigidBody.linearVelocity.magnitude > 0f);
     }
 
     private void TryFlip(Vector2 dir)
@@ -77,34 +75,103 @@ public class PlayerController : MonoBehaviour
             transform.eulerAngles = new Vector3(0, 180f, 0);
     }
 
+    public void UpgradeScrewdriver(Tools newTool)
+    {
+        screwdriver.Upgrade(newTool);
+    }
+
     private void HandleAttack(InputAction.CallbackContext callbackContext)
     {
+        if (screwdriver.gameObject.activeSelf) return;
         Move(Vector2.zero);
         animator.SetTrigger("Attack");
     }
 
     private void HandleActStart(InputAction.CallbackContext callbackContext)
     {
-        decompileTimer = decompileTime;
-        if (true) //if touching device
+        if (hammer.gameObject.activeSelf) return;
+        if (devices.Count > 0 && screwdriver.Instruments >= (int)Tools.Screwdriver)
         {
+            screwdriver.StartDecompiling(devices[0].DecompileTime);
             Move(Vector2.zero);
-            screwdriver.SetActive(true);
             screwdriver.transform.position = Camera.main.WorldToScreenPoint(barLoc.position);
-            //animator.SetBool("Decompiling", true);
+            animator.SetBool("Decompiling", true);
         } else
         {
-            //activate that shop/other crap
+            if(shops.Count > 0)
+                shops[0].Spend(this);
         }
     }
 
     private void HandleActEnd(InputAction.CallbackContext callbackContext)
     {
-        if (true) //if touching device
+        if (screwdriver.gameObject.activeSelf)
         {
-            screwdriver.SetActive(false);
-            decompileTimer = 0;
-            //animator.SetBool("Decompiling", false);
+            screwdriver.Stop();
+            animator.SetBool("Decompiling", false);
+        }
+    }
+
+    private void Decompile()
+    { 
+        screwdriver.gameObject.SetActive(false);
+        animator.SetBool("Decompiling", false);
+        if(devices.Count > 0)
+            devices[0].Drop(screwdriver.Instruments);
+    }
+
+    public bool TryToPay(float price)
+    {
+        if (price > cashOnHand) return false;
+        cashOnHand -= price;
+        return true;
+    }
+
+    public void MaxPower()
+    {
+        hammer.Damage *= 3;
+    }
+
+    public void PayUp(ref float debt)
+    {
+        if (debt >= cashOnHand)
+        {
+            debt -= cashOnHand;
+            cashOnHand = 0;
+        } else
+        {
+            cashOnHand -= debt;
+            debt = 0;
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        var device = other.GetComponent<Device>();
+        if(device != null)
+            devices.Add(device);
+        else
+        {
+            var shop = other.GetComponent<BaseShop>();
+            if(shop != null)
+                shops.Add(shop);
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        var device = other.GetComponent<Device>();
+        if(device != null)
+        {
+            if(devices.Contains(device))
+                devices.Remove(device);
+        }
+        else
+        {
+            var shop = other.GetComponent<BaseShop>();
+            if(shop != null)
+                if(shops.Contains(shop))
+                    shops.Remove(shop);
         }
     }
 
@@ -115,6 +182,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnDestroy()
     {
+        screwdriver.OnFinish -= Decompile;
         attack.started -= HandleAttack;
         action.started -= HandleActStart;
         action.canceled -= HandleActEnd;

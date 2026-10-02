@@ -28,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 2101827596886297214}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.15, y: -0.62, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -105,7 +105,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9744d6ff0c1bea41a4d9692742697a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Item
-  price: 5
+  price: 6
 --- !u!61 &8062846899973483797
 BoxCollider2D:
   m_ObjectHideFlags: 0

@@ -161,7 +161,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.2}
-    oldSize: {x: 2.24, y: 3.09}
+    oldSize: {x: 1.4933333, y: 2.06}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -206,12 +206,22 @@ MonoBehaviour:
   health: {fileID: 3010406792173162065}
   drops:
   - item: {fileID: 4566407798382311517, guid: 50fdefbcde5e7664185c3c188406a762, type: 3}
-    chance: 50
+    chance: 100
+    requiredTool: 4
   - item: {fileID: 1412723175706965866, guid: 9e6b4ce8fda18554f9d6da2fb98aedd3, type: 3}
-    chance: 75
+    chance: 100
+    requiredTool: 2
   - item: {fileID: 3421714391857497899, guid: ea2c8eb01f0909642a1b56038afea49e, type: 3}
     chance: 100
+    requiredTool: 1
+  - item: {fileID: 3418515129551141023, guid: 38eedd361e683334b88b61a38c88be34, type: 3}
+    chance: 100
+    requiredTool: 8
+  - item: {fileID: 7832054734215616799, guid: 5c1beb4b044843242a182412b97de9be, type: 3}
+    chance: 100
+    requiredTool: 16
   dropDistance: 1.5
+  decompileTime: 5
 --- !u!114 &3010406792173162065
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -226,4 +236,3 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Health
   animator: {fileID: 3395576191128871909}
   health: 3
-  destroyOnDeath: 1

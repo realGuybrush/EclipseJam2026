@@ -11,18 +11,29 @@ public class Device : MonoBehaviour
     private List<ItemAndChanceCouple> drops;
 
     [SerializeField]
-    private float dropDistance = 1.5f;
+    private float dropDistance = 1.5f, decompileTime = 5f;
 
     private void Start()
     {
-        health.OnDead += Drop;
+        health.OnDead += GetDestroyed;
     }
 
-    private void Drop()
+    private void GetDestroyed()
+    {
+        Drop((int)Tools.Hammer);
+    }
+
+    public void Drop(int tools)
     {
         foreach(var drop in drops)
-            if(Random.Range(0, 100) < drop.chance)
+            if( IsBitActive(tools, drop.Tool) && Random.Range(0, 100) < drop.chance)
                 Instantiate(drop.item, transform.position + DropCoords(), transform.rotation);
+        Destroy(gameObject);
+    }
+
+    private bool IsBitActive(int number, int bitIndex)
+    {
+        return (number & (1 << bitIndex)) != 0;
     }
 
     private Vector3 DropCoords()
@@ -33,6 +44,8 @@ public class Device : MonoBehaviour
 
     private void OnDestroy()
     {
-        health.OnDead -= Drop;
+        health.OnDead -= GetDestroyed;
     }
+
+    public float DecompileTime => decompileTime;
 }
