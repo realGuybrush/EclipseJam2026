@@ -13,6 +13,11 @@ public class Device : MonoBehaviour
     [SerializeField]
     private float dropDistance = 1.5f, decompileTime = 5f;
 
+    [SerializeField]
+    private Animator animator;
+    
+    //todo:learn spritemap or whatnot to make the one animator for different items
+
     private void Start()
     {
         health.OnDead += GetDestroyed;
@@ -40,6 +45,11 @@ public class Device : MonoBehaviour
     {
         float angle = Mathf.Deg2Rad * Random.Range(0f, 360f);
         return new Vector3(Mathf.Cos(angle), Mathf.Sin(angle)) * dropDistance;
+    }
+
+    public void SetFlight()
+    {
+        animator.SetTrigger("Airbourne");
     }
 
     private void OnDestroy()

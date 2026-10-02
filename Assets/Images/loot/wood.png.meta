@@ -1,10 +1,13 @@
 fileFormatVersion: 2
-guid: 86efd99a9d63fc548acd2918b8b54c6d
+guid: 5c828b6c651c8e045a464b739034f9ae
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 5739897283171119737
-    second: fridge_0
+      213: 7440981132975211316
+    second: wood_0
+  - first:
+      213: 702437253302840433
+    second: wood_1
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -126,13 +129,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: fridge_0
+      name: wood_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 399
-        height: 431
+        width: 193
+        height: 167
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -141,8 +144,30 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 972f4a2fa2638af40800000000000000
-      internalID: 5739897283171119737
+      spriteID: 4330f5b9aeca34760800000000000000
+      internalID: 7440981132975211316
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: wood_1
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 159
+        width: 16
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 17ced10d5fe8fb900800000000000000
+      internalID: 702437253302840433
       vertices: []
       indices: 
       edges: []
@@ -161,7 +186,8 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      fridge_0: 5739897283171119737
+      wood_0: 7440981132975211316
+      wood_1: 702437253302840433
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -15,6 +14,9 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField]
     private Rigidbody2D rigidBody;
+
+    [SerializeField]
+    private Health health;
 
     [SerializeField]
     private float speed;
@@ -45,6 +47,7 @@ public class PlayerController : MonoBehaviour
         action.started += HandleActStart;
         action.canceled += HandleActEnd;
         screwdriver.OnFinish += Decompile;
+        health.OnDead += Die;
     }
 
     void Update()
@@ -120,6 +123,12 @@ public class PlayerController : MonoBehaviour
             devices[0].Drop(screwdriver.Instruments);
     }
 
+    private void Die()
+    {
+        animator.SetBool("Dead", true);
+        enabled = false;
+    }
+
     public bool TryToPay(float price)
     {
         if (price > cashOnHand) return false;
@@ -182,6 +191,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnDestroy()
     {
+        health.OnDead -= Die;
         screwdriver.OnFinish -= Decompile;
         attack.started -= HandleAttack;
         action.started -= HandleActStart;
