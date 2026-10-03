@@ -32,7 +32,7 @@ public class Device : MonoBehaviour
     {
         foreach(var drop in drops)
             if( IsBitActive(tools, drop.Tool) && Random.Range(0, 100) < drop.chance)
-                Instantiate(drop.item, transform.position + DropCoords(), transform.rotation);
+                Instantiate(drop.item, transform.position, transform.rotation).Init(transform.position + DropCoords());
         Destroy(gameObject);
     }
 
