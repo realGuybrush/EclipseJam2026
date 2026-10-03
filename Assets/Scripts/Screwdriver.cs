@@ -3,39 +3,29 @@ using UnityEngine;
 
 public class Screwdriver : MonoBehaviour
 {
+
     [SerializeField]
-    private RectTransform line;
+    private FillBar fillBar;
     
-    private float decompileTimer, maxTimer, defaultWidth, defaultHeight;
+    private float decompileTimer, maxTimer;
 
     [SerializeField]
     private int instruments;
     
     public event Action OnFinish = delegate { };
 
-    private void Awake()
-    {
-        defaultWidth = line.sizeDelta.x;
-        defaultHeight = line.sizeDelta.y;
-    }
-
     void Update()
     {
         if (decompileTimer > 0)
         {
             decompileTimer -= Time.deltaTime;
-            UpdateLine();
+            fillBar.UpdateLine(decompileTimer);
             if (decompileTimer <= 0)
             {
                 OnFinish?.Invoke();
                 Stop();
             }
         }
-    }
-
-    private void UpdateLine()
-    {
-        line.sizeDelta = new Vector2((1f - decompileTimer / maxTimer) * defaultWidth, defaultHeight);
     }
 
     public void Upgrade(Tools type)
@@ -47,6 +37,7 @@ public class Screwdriver : MonoBehaviour
     {
         gameObject.SetActive(true);
         maxTimer = time;
+        fillBar.Init(maxTimer);
         decompileTimer = maxTimer;
     }
 

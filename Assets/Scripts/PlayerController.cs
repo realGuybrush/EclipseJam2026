@@ -101,8 +101,8 @@ public class PlayerController : MonoBehaviour
             animator.SetBool("Decompiling", true);
         } else
         {
-            if(shops.Count > 0)
-                shops[0].Spend(this);
+            if (shops.Count > 0)
+                UseClosestShop();
         }
     }
 
@@ -121,6 +121,16 @@ public class PlayerController : MonoBehaviour
         animator.SetBool("Decompiling", false);
         if(devices.Count > 0)
             devices[0].Drop(screwdriver.Instruments);
+    }
+
+    private void UseClosestShop()
+    {
+        int closest = 0;
+        for (int i=1; i < shops.Count; i++)
+            if ((shops[closest].gameObject.transform.position - transform.position).magnitude >
+                (shops[i].gameObject.transform.position - transform.position).magnitude)
+                closest = i;
+        shops[closest].Spend(this);
     }
 
     private void Die()
