@@ -36,6 +36,7 @@ public class Item : MonoBehaviour
         var player = other.GetComponent<PlayerController>();
         if (player == null) return;
         player.GetMoney(price);
+        MessageManager.Instance.ShowText(price + "$", Color.darkGreen);
         Destroy(gameObject);
     }
 }

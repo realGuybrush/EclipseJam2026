@@ -14,6 +14,7 @@ public class Shop : BaseShop
         {
             ActUponPlayer(player);
             gameObject.SetActive(false);
+            MessageManager.Instance.ShowText(tool.ToString(), Color.red);
         }
     }
 
